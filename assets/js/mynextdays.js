@@ -3,7 +3,7 @@ var myNextDays = function($) {
   var that, userName, calendarName, entries, weekdays, relativeDays;
   
   weekdays = new Array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
-  relativeDays = [['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
+  relativeDays = [['today', 0], ['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
   that = {};
   userName = 'Guest';
 
@@ -18,6 +18,7 @@ var myNextDays = function($) {
     that.addEntry('Next friday 17:00: Call Mary and invite her for pizza');
     that.addEntry('Work on HCI Assignment tomorrow');
     that.addEntry('Go swimming monday evening');
+    that.addEntry('View HCI video lecture today');
   }
 
   that.setUserName = function(name)
@@ -38,6 +39,13 @@ var myNextDays = function($) {
     note = input;
     dateText = "";
     
+    // Sort "now" to top
+    if (note.toLowerCase().indexOf('now') > -1) {
+      if(entries.length > 0) {
+        date = new Date();
+        date.setTime(entries[0].timestamp.getTime() - 1);
+      }
+    }
     // Find relative dates like "tomorrow"
     for(var i=0; i<relativeDays.length; i++) {
       var item = relativeDays[i];
@@ -54,7 +62,7 @@ var myNextDays = function($) {
       if (note.toLowerCase().indexOf(w) > -1)
       {
         date = new Date(); 
-        var diff = (i - date.getDay()) % 7;
+        var diff = (i - date.getDay() + 7) % 7;
         if (diff == 0) {
           diff = 7;
         }
@@ -69,8 +77,9 @@ var myNextDays = function($) {
       date = new Date();
     }
     else {
-        var dateTime = new DateTime(date.getTime());
-        dateText = dateTime.sym.d.yyyy + "-" + dateTime.sym.d.mm + "-" + dateTime.sym.d.dd + ", " + dateTime.day.name;
+        dateText = date.toLocaleDateString();
+        // var dateTime = new DateTime(date.getTime());
+        // dateText = dateTime.sym.d.yyyy + "-" + dateTime.sym.d.mm + "-" + dateTime.sym.d.dd + ", " + dateTime.day.name;
     }    
     
     entries.push({timestamp: date, "date": dateText, "time":"", "text": input });
@@ -87,11 +96,28 @@ var myNextDays = function($) {
   // Renders entries
   that.refresh = function()
   {
+    var today = new Date();
+    var tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+    var in2days = new Date();
+    in2days.setDate(today.getDate() + 2);
+    
     $('.entries-tbody').empty();
     for(var i=0; i<entries.length; i++)
     {
       var e = entries[i];
-      $('.entries-tbody:last').append('<tr><td>' + e.date + '</td><td>' + e.time + '</td><td>' + e.text + '</td></tr>');
+      var trClass = '';
+      // Highlight entries for today and tomorrow
+      if (e.timestamp.getDate() == today.getDate()) {
+        trClass = ' class="entry-today"';
+      } 
+      else if (e.timestamp.getDate() == tomorrow.getDate()) {
+        trClass = ' class="entry-tomorrow"'; 
+      }
+      else if (e.timestamp.getDate() == in2days.getDate()) {
+        trClass = ' class="entry-in2days"'; 
+      }
+      $('.entries-tbody:last').append('<tr' + trClass + '><td>' + e.date + '</td><td>' + e.time + '</td><td>' + e.text + '</td></tr>');
     }
   };
   

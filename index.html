@@ -60,6 +60,19 @@
       .entries-container { 
         margin: 10px;
       } 
+      
+      .entry-today { 
+        background-color: #8CD3EB; /* Bright blue */
+      } 
+      
+      .entry-tomorrow { 
+        background-color: #C1E4F0; /* Light blue */
+      } 
+      
+      .entry-in2days { 
+        background-color: #E1F1F7; /* Very light blue */
+      } 
+      
     </style>
   </head>
   
@@ -99,7 +112,7 @@
         Calendar: <a class="calendar-name" href="#"></a><span class="calendar-name-hint hint"> &lt;- you may give your calendar a name</span>
       </p>
       <form>
-        <input name="" type="text" placeholder="buy pizza next day" class="entry-input">
+        <input name="" type="text" placeholder="buy pizza next day (now / today / tomorrow / on friday / ...)" class="entry-input">
         <a class="btn search-button" href="#">
           Search
         </a>
