@@ -63,7 +63,7 @@ var myNextDays = function($) {
       {
         date = new Date(); 
         var diff = (i - date.getDay() + 7) % 7;
-        if (diff == 0) {
+        if (diff === 0) {
           diff = 7;
         }
         date = new Date(); 
@@ -82,7 +82,7 @@ var myNextDays = function($) {
         // dateText = dateTime.sym.d.yyyy + "-" + dateTime.sym.d.mm + "-" + dateTime.sym.d.dd + ", " + dateTime.day.name;
     }    
     
-    entries.push({timestamp: date, "date": dateText, "time":"", "text": input });
+    entries.push({'timestamp': date, 'date': dateText, 'time':'', 'text': input, 'mostRecent': true });
     
     entries.sort(function(a, b) {
         return a.timestamp.getTime() - b.timestamp.getTime();
@@ -91,6 +91,14 @@ var myNextDays = function($) {
     // TODO: Remove entries which are in the past? Or put them in an extra hidden container?
     
     that.refresh();
+  }
+  
+  that.removeEntry = function(anchorClicked) {
+    var index = anchorClicked.attr('href').substring(1);
+    // Update model
+    entries.splice(index, 1);
+    // Update view
+    $('.entry-' + index).fadeOut('slow');
   }
   
   // Renders entries
@@ -106,25 +114,38 @@ var myNextDays = function($) {
     for(var i=0; i<entries.length; i++)
     {
       var e = entries[i];
-      var trClass = '';
+      var trClass = 'entry-row';
       // Highlight entries for today and tomorrow
       if (e.timestamp.getDate() == today.getDate()) {
-        trClass = ' class="entry-today"';
+        trClass += ' entry-today';
       } 
       else if (e.timestamp.getDate() == tomorrow.getDate()) {
-        trClass = ' class="entry-tomorrow"'; 
+        trClass += ' entry-tomorrow'; 
       }
       else if (e.timestamp.getDate() == in2days.getDate()) {
-        trClass = ' class="entry-in2days"'; 
+        trClass += ' entry-in2days'; 
       }
-      $('.entries-tbody:last').append('<tr' + trClass + '><td>' + e.date + '</td><td>' + e.time + '</td><td>' + e.text + '</td></tr>');
+      trClass += ' entry-' + i;
+      $('.entries-tbody:last').append(
+        '<tr class="' + trClass + '"><td>' + e.date + '</td><td>' + e.time + '</td><td>' + e.text + '</td>' +
+        '<td><div class="btn-group row-actions">' + 
+        '<a class="btn btn-small remove-button" href="#' + i + '"><i class="icon-minus"></i> Remove</a>' + 
+        '<a class="btn btn-small edit-button" href="#' + i + '"><i class="icon-pencil"></i> Edit</a>' + 
+        '</div></td></tr>');
+      
+      // Show actions of most recently added row and slowly fade them out
+      if (e.mostRecent) {
+        e.mostRecent = false;
+        that.showRowActions($('.entry-' + i));
+        that.hideRowActions($('.entry-' + i), 5000);
+      }
     }
   };
   
   that.refreshCurrentDate = function() {
     var dateTime = new DateTime();
     $(".current-date").text(dateTime.formats.pretty.c);
-  }
+  };
   setInterval(that.refreshCurrentDate , 250);
   
   // Inline edit an anchor element <a>
@@ -154,7 +175,7 @@ var myNextDays = function($) {
           }
         });
 
-        // Prevernt listener on "html" from beeing notified with the current click
+        // Prevent listener on "html" from beeing notified with the current click
         event.stopPropagation();
         // Input is done when clicking outside of input field
         $('html').click(function() { inputDone() } );
@@ -164,7 +185,18 @@ var myNextDays = function($) {
       }
     });
   }
-  
+
+
+  that.showRowActions = function (rowElement) {
+    // Stop possible hide animation and fadeIn
+    $(rowElement).find(".row-actions").stop(true, true);
+    $(rowElement).find(".row-actions").css('visibility','visible').show();
+  };
+
+  that.hideRowActions = function (rowElement, duration) {
+    $(rowElement).find(".row-actions").fadeOut(duration, function() { $(this).show().css('visibility','hidden') });
+  };
+
   that.run = function()
   {
     that.createCalendar();
@@ -209,6 +241,19 @@ var myNextDays = function($) {
     }
   });
 
+  // Show entry actions only when mouse in row  
+  $(document).on('mouseenter', '.entry-row', function() {
+    that.showRowActions(this);
+  });
+  $(document).on('mouseleave', '.entry-row', function() {
+    that.hideRowActions(this, 'fast');
+  });
+
+  // Remove entry when Remove button clicked
+  $(document).on('click', '.remove-button', function() {
+    that.removeEntry($(this));
+  });
+  
   return that;
   
 }(jQuery);

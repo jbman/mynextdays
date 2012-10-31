@@ -73,6 +73,12 @@
         background-color: #E1F1F7; /* Very light blue */
       } 
       
+      .row-actions {
+        visibility: hidden;
+        text-align: right;
+        margin: 0px;
+      }
+      
     </style>
   </head>
   
@@ -117,7 +123,7 @@
           Search
         </a>
         <a class="btn btn-primary add-button" href="#">
-          Add
+          <i class="icon-plus"></i> Add
         </a>
       </form>
       <div class="entries-container">
@@ -126,7 +132,11 @@
           </tbody>     
         </table>
       </div>
+      <div id="footer">
+          <p class="muted credit">Prototype created by Johannes Bergmann for <a href="https://www.coursera.org/course/hci">Coursera online course - Human Computer Interaction</a></p>
+      </div>
     </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
     </script>
     <script src="assets/js/bootstrap.js">
