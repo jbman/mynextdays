@@ -1,6 +1,6 @@
 var myNextDays = function($) {
 
-  var that, userName, calendarName, entries, weekdays, relativeDays, editMode = false;
+  var that, userName, calendarName, entries, weekdays, relativeDays, editedEntryButton = null;
   
   weekdays = new Array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
   relativeDays = [['today', 0], ['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
@@ -32,7 +32,11 @@ var myNextDays = function($) {
   
   that.addEntry = function(input)
   {
-    editMode = false;
+    if (editedEntryButton != null) {
+      // Remove edited entry
+      that.removeEntry(editedEntryButton);
+    }
+    editedEntryButton = null;
     
     var date, dateText, time, note;
     note = input;
@@ -103,13 +107,11 @@ var myNextDays = function($) {
   that.editEntry = function(editButton) {
     var textCell, input, doneListener;
     textCell = editButton.parents('.entry-row').find('.entry-text');
-    // Remove edited entry
-    that.removeEntry(editButton);
     // Fill input field with current value and place cursor at end
     input = $('.entry-input');
     input.val(textCell.text());
     input[0].selectionStart = input[0].selectionEnd = input.val().length;
-    editMode = true;
+    editedEntryButton = editButton;
     that.refreshAddButton();
   }
    
@@ -158,7 +160,7 @@ var myNextDays = function($) {
   
   // Update "Add" Button text if no more in edit mode
   that.refreshAddButton = function() {
-    if (editMode) {
+    if (editedEntryButton != null) {
       // Switch "Add" button to "Edit Done"
       $('.add-button').html('<i class="icon-ok icon-white"></i> Edit done');
     }
