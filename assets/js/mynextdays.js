@@ -1,40 +1,39 @@
 var myNextDays = function($) {
 
-  var that, userName, calendarName, entries, weekdays, relativeDays;
+  var that, userName, calendarName, entries, weekdays, relativeDays, editMode = false;
   
   weekdays = new Array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
   relativeDays = [['today', 0], ['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
   that = {};
-  userName = 'Guest';
 
-  that.createCalendar = function()
-  {
+
+  that.createCalendar = function() {
     entries = [];
-    that.setCalendarName('My Calendar');
+    that.setCalendarName('My Next Days');
+    that.setUserName("Guest");
   }
   
-  that.setDemoData = function()
-  {
+  that.setDemoData = function() {
     that.addEntry('Next friday 17:00: Call Mary and invite her for pizza');
     that.addEntry('Work on HCI Assignment tomorrow');
     that.addEntry('Go swimming monday evening');
     that.addEntry('View HCI video lecture today');
   }
 
-  that.setUserName = function(name)
-  {
+  that.setUserName = function(name) {
     userName = name;
     $('.user-name').text(userName);
   }
       
-  that.setCalendarName = function(name)
-  {
+  that.setCalendarName = function(name) {
     calendarName = name;
     $('.calendar-name').text(name);
   }
   
   that.addEntry = function(input)
   {
+    editMode = false;
+    
     var date, dateText, time, note;
     note = input;
     dateText = "";
@@ -101,6 +100,19 @@ var myNextDays = function($) {
     $('.entry-' + index).fadeOut('slow');
   }
   
+  that.editEntry = function(editButton) {
+    var textCell, input, doneListener;
+    textCell = editButton.parents('.entry-row').find('.entry-text');
+    // Remove edited entry
+    that.removeEntry(editButton);
+    // Fill input field with current value and place cursor at end
+    input = $('.entry-input');
+    input.val(textCell.text());
+    input[0].selectionStart = input[0].selectionEnd = input.val().length;
+    editMode = true;
+    that.refreshAddButton();
+  }
+   
   // Renders entries
   that.refresh = function()
   {
@@ -127,7 +139,7 @@ var myNextDays = function($) {
       }
       trClass += ' entry-' + i;
       $('.entries-tbody:last').append(
-        '<tr class="' + trClass + '"><td>' + e.date + '</td><td>' + e.time + '</td><td>' + e.text + '</td>' +
+        '<tr class="' + trClass + '"><td>' + e.date + '</td><td>' + e.time + '</td><td class="entry-text">' + e.text + '</td>' +
         '<td><div class="btn-group row-actions">' + 
         '<a class="btn btn-small remove-button" href="#' + i + '"><i class="icon-minus"></i> Remove</a>' + 
         '<a class="btn btn-small edit-button" href="#' + i + '"><i class="icon-pencil"></i> Edit</a>' + 
@@ -140,7 +152,20 @@ var myNextDays = function($) {
         that.hideRowActions($('.entry-' + i), 5000);
       }
     }
+    
+    that.refreshAddButton();
   };
+  
+  // Update "Add" Button text if no more in edit mode
+  that.refreshAddButton = function() {
+    if (editMode) {
+      // Switch "Add" button to "Edit Done"
+      $('.add-button').html('<i class="icon-ok icon-white"></i> Edit done');
+    }
+    else {
+      $('.add-button').html('<i class="icon-plus icon-white"></i> Add');
+    }
+  }  
   
   that.refreshCurrentDate = function() {
     var dateTime = new DateTime();
@@ -151,27 +176,44 @@ var myNextDays = function($) {
   // Inline edit an anchor element <a>
   // Callback function gets the new value as argument
   that.inlineEdit = function(element, callback) {
-    element.click(function() {
-      var isInput = element.children().size() > 0;
+    element.click(that.inlineEditFunction(callback));
+  };
+    
+  // Function to activate inline edit of an element
+  // Callback: Function which gets the new value as argument when editing is done.
+  that.inlineEditFunction = function(callback) {
+    return function() {
+      var element, isInput, originalValue;
+      element = $(this);
+      isInput = element.children().size() > 0;
       if (!isInput) {
-
-        element.html('<input id="inlineEditInput" value="' + element.text() + '"></input>');
+        originalValue = element.text();
+        element.html('<input id="inlineEditInput" value="' + originalValue + '"></input>');
         var inputField = $('#inlineEditInput');
         inputField.select();
         
-        var inputDone = function() {
+        var inputDone = function(submit) {
           var newValue = $('#inlineEditInput').val();
           element.empty();
-          $('html').unbind('click');
           element.unbind('click.stopPropagation');
-          callback(newValue);
+          $('html').unbind('click');
+          if (submit) {
+            callback(newValue);
+          }
+          else  {
+            // if submit is false supply the original value
+            callback(originalValue);
+          }
         };
 
         // Input is done when ENTER is pressed      
         inputField.bind('keyup', function(e) {
           var code = (e.keyCode ? e.keyCode : e.which);
           if(code == 13) { //Enter keycode
-            inputDone();
+            inputDone(true);
+          }
+          else if(code == 27) { //ESC keycode
+            inputDone(false);
           }
         });
 
@@ -183,7 +225,7 @@ var myNextDays = function($) {
            event.stopPropagation();
         });
       }
-    });
+    }
   }
 
 
@@ -215,6 +257,10 @@ var myNextDays = function($) {
 
   // Provide your name
   that.inlineEdit($('.user-name'), function(value) {
+    if(value.length < 1)
+    {
+      value = 'Guest';
+    }
     that.setUserName(value);
     $('.user-name-hint').hide();
   });
@@ -249,10 +295,19 @@ var myNextDays = function($) {
     that.hideRowActions(this, 'fast');
   });
 
-  // Remove entry when Remove button clicked
+  // Remove entry when remove button clicked
   $(document).on('click', '.remove-button', function() {
     that.removeEntry($(this));
   });
+  
+  // Edit entry when edit button clicked
+  $(document).on('click', '.edit-button', function() {
+    that.editEntry($(this));
+  });
+
+  // Initialize
+  $('a[rel=popover]').popover({placement: "bottom", trigger: "hover"});
+  that.createCalendar();
   
   return that;
   
