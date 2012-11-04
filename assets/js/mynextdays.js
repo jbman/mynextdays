@@ -11,6 +11,7 @@ var myNextDays = function($) {
     entries = [];
     that.setCalendarName('My Next Days');
     that.setUserName("Guest");
+    $('.entry-input').focus();
   }
   
   that.setDemoData = function() {
@@ -110,6 +111,7 @@ var myNextDays = function($) {
     // Fill input field with current value and place cursor at end
     input = $('.entry-input');
     input.val(textCell.text());
+    input.focus();
     input[0].selectionStart = input[0].selectionEnd = input.val().length;
     editedEntryButton = editButton;
     that.refreshAddButton();
@@ -182,7 +184,8 @@ var myNextDays = function($) {
   };
     
   // Function to activate inline edit of an element
-  // Callback: Function which gets the new value as argument when editing is done.
+  // Callback: Function which gets new value as argument when editing is done.
+  // If input is empty, the original value is supplied
   that.inlineEditFunction = function(callback) {
     return function() {
       var element, isInput, originalValue;
@@ -192,6 +195,7 @@ var myNextDays = function($) {
         originalValue = element.text();
         element.html('<input id="inlineEditInput" value="' + originalValue + '"></input>');
         var inputField = $('#inlineEditInput');
+        inputField.focus();
         inputField.select();
         
         var inputDone = function(submit) {
@@ -199,7 +203,7 @@ var myNextDays = function($) {
           element.empty();
           element.unbind('click.stopPropagation');
           $('html').unbind('click');
-          if (submit) {
+          if (submit && newValue.length > 0) {
             callback(newValue);
           }
           else  {
@@ -264,13 +268,15 @@ var myNextDays = function($) {
       value = 'Guest';
     }
     that.setUserName(value);
-    $('.user-name-hint').hide();
   });
       
   // Name your calendar
   that.inlineEdit($('.calendar-name'), function(value) {
+    if(value.length < 1)
+    {
+      value = 'Guest';
+    }  
     that.setCalendarName(value);
-    $('.calendar-name-hint').hide();
   });
   
   var executeAdd = function(){
