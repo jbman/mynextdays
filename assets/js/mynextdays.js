@@ -1,14 +1,10 @@
-var myNextDays = function($) {
+var myNextDays = function($, model) {
 
-  var that, userName, calendarName, entries, weekdays, relativeDays, editedEntryButton = null;
-  
-  weekdays = new Array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
-  relativeDays = [['today', 0], ['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
+  var that, userName, calendarName, editedEntryButton = null;
   that = {};
-
-
+  
   that.createCalendar = function() {
-    entries = [];
+    model.clearEntries();
     that.setCalendarName('My Next Days');
     that.setUserName("Guest");
     $('.entry-input').focus();
@@ -39,60 +35,7 @@ var myNextDays = function($) {
     }
     editedEntryButton = null;
     
-    var date, dateText, time, note;
-    note = input;
-    dateText = "";
-    
-    // Sort "now" to top
-    if (note.toLowerCase().indexOf('now') > -1) {
-      if(entries.length > 0) {
-        date = new Date();
-        date.setTime(entries[0].timestamp.getTime() - 1);
-      }
-    }
-    // Find relative dates like "tomorrow"
-    for(var i=0; i<relativeDays.length; i++) {
-      var item = relativeDays[i];
-      if (note.toLowerCase().indexOf(item[0]) > -1)
-      {
-        date = new Date(); 
-        date.setDate(date.getDate() + item[1]);
-        break;
-      }
-    }
-    // Find weekdays like "friday" (whill be interpreted as "next friday")
-    for(var i=0; i<weekdays.length; i++) {
-      var w = weekdays[i];
-      if (note.toLowerCase().indexOf(w) > -1)
-      {
-        date = new Date(); 
-        var diff = (i - date.getDay() + 7) % 7;
-        if (diff === 0) {
-          diff = 7;
-        }
-        date = new Date(); 
-        date.setDate(date.getDate() + diff);
-        break;
-      }
-    }
-    if (typeof date == 'undefined')
-    {
-    // No date found yet: Use current date, so that item is sorted on top
-      date = new Date();
-    }
-    else {
-        dateText = date.toLocaleDateString();
-        // var dateTime = new DateTime(date.getTime());
-        // dateText = dateTime.sym.d.yyyy + "-" + dateTime.sym.d.mm + "-" + dateTime.sym.d.dd + ", " + dateTime.day.name;
-    }    
-    
-    entries.push({'timestamp': date, 'date': dateText, 'time':'', 'text': input, 'mostRecent': true });
-    
-    entries.sort(function(a, b) {
-        return a.timestamp.getTime() - b.timestamp.getTime();
-    });
-    
-    // TODO: Remove entries which are in the past? Or put them in an extra hidden container?
+    model.addEntry(input);
     
     that.refresh();
   }
@@ -100,7 +43,7 @@ var myNextDays = function($) {
   that.removeEntry = function(anchorClicked) {
     var index = anchorClicked.attr('href').substring(1);
     // Update model
-    entries.splice(index, 1);
+    model.removeEntry(index);
     // Update view
     $('.entry-' + index).fadeOut('slow');
   }
@@ -120,6 +63,7 @@ var myNextDays = function($) {
   // Renders entries
   that.refresh = function()
   {
+    var entries = model.entries();
     var today = new Date();
     var tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
@@ -127,7 +71,7 @@ var myNextDays = function($) {
     in2days.setDate(today.getDate() + 2);
     
     $('.entries-tbody').empty();
-    for(var i=0; i<entries.length; i++)
+    for(var i = 0; i < entries.length; i++)
     {
       var e = entries[i];
       var trClass = 'entry-row';
@@ -234,16 +178,15 @@ var myNextDays = function($) {
     }
   }
 
-
   that.showRowActions = function (rowElement) {
     // Stop possible hide animation and fadeIn
     $(rowElement).find(".row-actions").stop(true, true);
     $(rowElement).find(".row-actions").css('visibility','visible').show();
-  };
+  }
 
   that.hideRowActions = function (rowElement, duration) {
     $(rowElement).find(".row-actions").fadeOut(duration, function() { $(this).show().css('visibility','hidden') });
-  };
+  }
 
   that.run = function()
   {
@@ -251,7 +194,7 @@ var myNextDays = function($) {
     that.setDemoData();
     that.refresh();
     that.refreshCurrentDate();
-  };
+  }
   
   // --- Event handlers ---
 
@@ -263,19 +206,11 @@ var myNextDays = function($) {
 
   // Provide your name
   that.inlineEdit($('.user-name'), function(value) {
-    if(value.length < 1)
-    {
-      value = 'Guest';
-    }
     that.setUserName(value);
   });
       
   // Name your calendar
   that.inlineEdit($('.calendar-name'), function(value) {
-    if(value.length < 1)
-    {
-      value = 'Guest';
-    }  
     that.setCalendarName(value);
   });
   
@@ -319,6 +254,6 @@ var myNextDays = function($) {
   
   return that;
   
-}(jQuery);
+}(jQuery, mnd_model);
 
 
