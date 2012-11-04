@@ -1,9 +1,26 @@
 // Module for "My Next Days model"
 var mnd_model = (function() {
 
-  var that, entries, weekdays, relativeDays,
-  weekdays = new Array('sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday');
+  var that, entries, weekdays, relativeDays, datePattern;
+  
+  weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   relativeDays = [['today', 0], ['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
+  datePatterns = [
+    [
+      // Recognizes: dd-mm-yyyy or dd-mm (. or / can be used instead of -)
+      /[^\d]*(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.]?(\d{4})?.*/, 
+      function(g) {
+        if (g.length < 4) {
+          return;
+        }
+        // console.debug(g);
+        var year = (g[3] ? g[3] : (new Date()).getFullYear());
+        var dateString = year + '-' + g[2] + '-' + g[1];
+        // console.debug(dateString);
+        return new Date(dateString);      
+    }]
+  ];
+
   that = {};
   entries = [];
   
@@ -21,7 +38,7 @@ var mnd_model = (function() {
     dateText = "";
     
     // Sort "now" to top
-    if (note.toLowerCase().indexOf('now') > -1) {
+    if (!date && note.toLowerCase().indexOf('now') > -1) {
       if(entries.length > 0) {
         date = new Date();
         date.setTime(entries[0].timestamp.getTime() - 1);
@@ -52,6 +69,21 @@ var mnd_model = (function() {
         break;
       }
     }
+    // Find absolute dates with specified patterns
+    for(var i=0; i < datePatterns.length; i++) {
+      var recognizedDate, pattern, matches, regexp, createDateFunction;
+      pattern = datePatterns[i];
+      regexp = pattern[0];
+      createDateFunction = pattern[1];
+      var matches = input.match(regexp);
+      if (matches) {
+        recognizedDate = createDateFunction(matches);
+        if (recognizedDate) {
+          date = recognizedDate;
+        }
+      }
+    }
+        
     if (typeof date == 'undefined')
     {
     // No date found yet: Use current date, so that item is sorted on top

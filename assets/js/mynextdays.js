@@ -15,6 +15,9 @@ var myNextDays = function($, model) {
     that.addEntry('Work on HCI Assignment tomorrow');
     that.addEntry('Go swimming monday evening');
     that.addEntry('View HCI video lecture today');
+    that.addEntry('06/12/2012 Santa Claus party');
+    that.addEntry('Write Christmas Cards! 18-12');
+    that.addEntry('24.12 Christmas');
   }
 
   that.setUserName = function(name) {
@@ -64,11 +67,16 @@ var myNextDays = function($, model) {
   that.refresh = function()
   {
     var entries = model.entries();
-    var today = new Date();
-    var tomorrow = new Date();
-    tomorrow.setDate(today.getDate() + 1);
-    var in2days = new Date();
-    in2days.setDate(today.getDate() + 2);
+    var createDateString = function(aDate, addDays) {
+      if (!aDate) {
+        return undefined;
+      }
+      aDate.setDate(aDate.getDate() + addDays);
+      return aDate.getFullYear() + '-' + aDate.getMonth() + '-' + aDate.getDate();
+    }
+    var today = createDateString(new Date(), 0);
+    var tomorrow = createDateString(new Date(), 1);
+    var in2days = createDateString(new Date(), 2);
     
     $('.entries-tbody').empty();
     for(var i = 0; i < entries.length; i++)
@@ -76,13 +84,14 @@ var myNextDays = function($, model) {
       var e = entries[i];
       var trClass = 'entry-row';
       // Highlight entries for today and tomorrow
-      if (e.timestamp.getDate() == today.getDate()) {
+      var eDateString = createDateString(e.timestamp, 0);
+      if (eDateString === today) {
         trClass += ' entry-today';
       } 
-      else if (e.timestamp.getDate() == tomorrow.getDate()) {
+      else if (eDateString === tomorrow) {
         trClass += ' entry-tomorrow'; 
       }
-      else if (e.timestamp.getDate() == in2days.getDate()) {
+      else if (eDateString === in2days) {
         trClass += ' entry-in2days'; 
       }
       trClass += ' entry-' + i;
