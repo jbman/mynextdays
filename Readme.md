@@ -8,7 +8,7 @@ The webapp “My Next Days” should satisfy the need to manage the upcoming eve
 HTML, CSS, Javascript and the power jQuery and Twitter Bootstrap (played with it for the first time and I like it).
 
 ## Demo
-A version of this code is online at [http://mynextdays.staticloud.com](mynextdays.staticloud.com)
+A version of this code is online at [mynextdays.staticloud.com](http://mynextdays.staticloud.com])
 
 ## License
-[http://creativecommons.org/licenses/by-nc-sa/3.0](Creative Commons by-nc-sa)
+[Creative Commons BY-NC-SA 3.0](http://creativecommons.org/licenses/by-nc-sa/3.0)
