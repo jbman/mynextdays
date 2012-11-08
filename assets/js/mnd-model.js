@@ -1,7 +1,7 @@
 // Module for "My Next Days model"
 var mnd_model = (function() {
 
-  var that, entries, weekdays, relativeDays, datePattern;
+  var that, entries, filterText, weekdays, relativeDays, datePattern;
   
   weekdays = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
   relativeDays = [['today', 0], ['next day', 1], ['tomorrow', 1], ['in two days', 2], ['in three days', 3]];
@@ -23,13 +23,25 @@ var mnd_model = (function() {
 
   that = {};
   entries = [];
+  filterText = undefined;
   
   that.clearEntries = function() {
     entries = [];
   }
   
   that.entries = function() {
-    return entries;
+    if (filterText) {
+      var foundEntries = [];
+      for (var i=0; i<entries.length; i++) {
+        if (entries[i].text.toLowerCase().indexOf(filterText.toLowerCase()) >= 0) {
+          foundEntries.push(entries[i]);
+        }
+      }
+      return foundEntries;
+    }
+    else {
+      return entries;
+    }
   }
   
   that.addEntry = function(input) {
@@ -106,6 +118,18 @@ var mnd_model = (function() {
   
   that.removeEntry = function(index) {
     entries.splice(index, 1);
+  }
+  
+  that.setSearch = function(searchText) {
+    filterText = searchText;
+  }
+    
+  that.clearSearch = function() {
+    filterText = undefined;
+  }
+
+  that.isSearchActive = function() {
+    return !(filterText === undefined) ;
   }
   
   return that;

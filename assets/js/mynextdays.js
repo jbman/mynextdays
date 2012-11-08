@@ -57,10 +57,10 @@ var myNextDays = function($, model) {
     // Fill input field with current value and place cursor at end
     input = $('.entry-input');
     input.val(textCell.text());
-    input.focus();
     input[0].selectionStart = input[0].selectionEnd = input.val().length;
     editedEntryButton = editButton;
     that.refreshAddButton();
+    input.focus();
   }
    
   // Renders entries
@@ -196,6 +196,30 @@ var myNextDays = function($, model) {
   that.hideRowActions = function (rowElement, duration) {
     $(rowElement).find(".row-actions").fadeOut(duration, function() { $(this).show().css('visibility','hidden') });
   }
+  
+  that.searchEntries = function() {
+    var searchText = $('.entry-input').val();
+    if (searchText.length == 0) {
+       if (model.isSearchActive()) {
+        that.closeSearch()
+       }
+       return;
+    }
+    $('.entry-input').val('');
+    $('.search-text').text(searchText);
+    $('.search-badge').fadeIn('fast');
+    model.setSearch(searchText);
+    that.refresh();
+    $('.entry-input').focus();
+  }
+  
+  that.closeSearch = function() {
+    $('.entry-input').val('');
+    $('.search-badge').fadeOut('fast');
+    model.clearSearch()
+    that.refresh();
+    $('.entry-input').focus();
+  }
 
   that.run = function()
   {
@@ -257,6 +281,26 @@ var myNextDays = function($, model) {
     that.editEntry($(this));
   });
 
+  // Search for entries when edit button clicked
+  $(document).on('click', '.search-button', function() {
+    that.searchEntries();
+  });
+  
+  // Clear search
+  $(document).on('click', '.search-close', function() {
+    that.closeSearch();
+  });
+  
+  // CTRL+S as key comibination for search
+  var isCtrl = false;
+  $(document).keydown(
+    function (e) { 
+      if(e.which == 83 && e.ctrlKey == true) { 
+        that.searchEntries();
+        return false; 
+      } 
+  });
+  
   // Initialize
   $('a[rel=popover]').popover({placement: "bottom", trigger: "hover"});
   that.createCalendar();

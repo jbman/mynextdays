@@ -29,7 +29,7 @@
     <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
     <style>
     
-      /* Hack touse popover in navbar */
+      /* Hack to use popover in navbar */
       .popover{ z-index: 1055; }
       
       .hint {
@@ -41,17 +41,27 @@
 
       .navbar-form {
         margin-bottom: 4px;
+        margin-right: 10px; 
+        width: 60%;
       }
       
       .entry-input { 
-        width: 80%; 
+        width: 100%;
       } 
       
-      .search-button { margin-right:
-        10px; 
+      .search-badge {
+        margin-top: 5px;
+        margin-bottom: 0px;
+        padding: 4px 35px 4px 14px;
+        display: none;
+      }
+
+      .add-button { 
+        margin-left: 10px; 
       } 
       
-      .logout { 
+      .search-button { 
+        margin-right: 10px; 
       } 
       
       .calendar-title { 
@@ -128,17 +138,25 @@
               Hello <a class="user-name"></a>, write down events, deadlines or notes to plan your next days. You can use
               relative dates as in the input box below.
             </p>
-            <form class="navbar-form">
+            <form class="navbar-form" style="display: inline-block">
               <input name="" type="text" 
                 placeholder="buy pizza next day (now / today / tomorrow / on friday / ...)" 
-                class="entry-input">
-              <a class="btn search-button" href="#">
-                Search
-              </a>
-              <a class="btn btn-primary add-button" href="#">
-                <i class="icon-plus icon-white"></i> Add
-              </a>
+                class="entry-input" >
             </form>
+              <div style="display: inline-block">           
+                <a class="add-button btn btn-primary" href="#">
+                  <i class="icon-plus icon-white"></i> Add
+                </a>
+                <a class="search-button btn" href="#">
+                  Search <span style="font-size:0.7em">(CTRL+S)</span>
+                </a>
+                <a class="search-badge alert alert-info pull-right"
+                    rel="popover" data-placement="bottom"
+                    data-original-title="<b>Current search</b>"
+                    data-content="Only matching entries are shown in list below. You can clear the search by clicking the <b>x</b> icon or by pressing CTRL+S without input.">
+                  <span class="search-text">The Searchterm</span><button type="button" class="search-close close">×</button>
+                </a> 
+              </div>            
           </div>
         </div>
       </div>
