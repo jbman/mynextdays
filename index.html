@@ -11,10 +11,13 @@
     <!-- Le styles -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <style>
-      body { padding-top: 60px; /* 60px to make the container go all the way
+      body { padding-top: 114px; /* 60px original; to make the container go all the way
       to the bottom of the topbar */ }
     </style>
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/bootstrap-responsive.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
+    <link rel="stylesheet" href="assets/css/jquery.clearable.css" type="text/css" media="screen" />    
+    
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
@@ -45,9 +48,22 @@
         width: 60%;
       }
       
-      .entry-input { 
-        width: 100%;
-      } 
+      .navbar-form .btn{
+        margin-top: 0px;
+      }
+      
+      .input-line {
+        float:left;
+      }
+      
+      .input-line p {
+        margin-bottom:0px;
+      }
+      
+      .input-line input {
+        float:left;
+        margin-top:0px;
+      }
       
       .search-badge {
         margin-top: 5px;
@@ -57,13 +73,13 @@
       }
 
       .add-button { 
-        margin-left: 10px; 
+        margin-left: 6px;
       } 
       
       .search-button { 
-        margin-right: 10px; 
+        margin-left: 6px;
       } 
-      
+
       .calendar-title { 
         font-weight: bold;
         font-size: 120%;
@@ -94,7 +110,7 @@
     </style>
   </head>
   
-  <body style="padding-top: 110px">
+  <body>
     <div class="container-fluid">
       <div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
@@ -134,21 +150,36 @@
             </ul>
           </div>
           <div class="container" style="margin-top: 0px">
-            <p style="margin-bottom: 0px">
-              Hello <a class="user-name"></a>, write down events, deadlines or notes to plan your next days. You can use
-              relative dates as in the input box below.
+            <p style="margin-bottom: 4px">
+              Hello <a class="user-name"></a>, write down events, deadlines or notes to plan your next days.
             </p>
-            <form class="navbar-form" style="display: inline-block">
-              <input name="" type="text" 
-                placeholder="buy pizza next day (now / today / tomorrow / on friday / ...)" 
-                class="entry-input" >
-            </form>
-              <div style="display: inline-block">           
-                <a class="add-button btn btn-primary" href="#">
+            <form class="navbar-form" style="width:100%">
+              <div class="input-line" style="width:500px">
+                <p>Event <span style="font-size:0.8em">(You can use a relative date here, like "next friday")</span></p>
+                <input type="text" style="width:480px"
+                  placeholder="buy pizza next day (now / today / tomorrow / on friday / ...)" 
+                  class="entry-input"/>
+              </div>
+              <div class="input-line" style="width:220px; margin-left:10px">
+                <p>Date <span style="font-size:0.8em">(Optional)</span></p>
+                <input type="text" class="datepicker" 
+                  placeholder="dd.mm.yyyy"
+                  style="width:80px"/>
+                <a class="add-button btn btn-primary" href="#" title="Add entry (Enter)">
                   <i class="icon-plus icon-white"></i> Add
-                </a>
-                <a class="search-button btn" href="#">
-                  Search <span style="font-size:0.7em">(CTRL+S)</span>
+                </a>                  
+              </div>              
+              <div class="input-line" style="width:160px; margin-left:10px">
+                <p>Search</p>
+                <div style="position: relative">        
+                  <input type="text" style="width:140px"
+                    class="search-input"/>        
+                  <img class="clear-search"
+                    style="position: absolute; left: 130px; top:4px; padding: 4px; z-index: 2000; cursor: pointer;" 
+                    src="assets/img/clear-search.png" alt="" />
+                </div>
+                <a class="search-button btn pull-left" href="#" title="Search (CTRL+S)" style="display:none">
+                  <i class="icon-search"></i>
                 </a>
                 <a class="search-badge alert alert-info pull-right"
                     rel="popover" data-placement="bottom"
@@ -157,6 +188,7 @@
                   <span class="search-text">The Searchterm</span><button type="button" class="search-close close">×</button>
                 </a> 
               </div>            
+            </form>
           </div>
         </div>
       </div>
@@ -171,7 +203,11 @@
       </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js">
+    </script>
+    <script src="assets/js/jquery.clearable.js">
     </script>
     <script src="assets/js/bootstrap.js">
     </script>

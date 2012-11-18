@@ -30,7 +30,7 @@ var myNextDays = function($, model) {
     $('.calendar-name').text(name);
   }
   
-  that.addEntry = function(input)
+  that.addEntry = function(input, pickedDate)
   {
     if (editedEntryButton != null) {
       // Remove edited entry
@@ -38,8 +38,7 @@ var myNextDays = function($, model) {
     }
     editedEntryButton = null;
     
-    model.addEntry(input);
-    
+    model.addEntry(input, pickedDate);
     that.refresh();
   }
   
@@ -52,11 +51,13 @@ var myNextDays = function($, model) {
   }
   
   that.editEntry = function(editButton) {
-    var textCell, input, doneListener;
+    var dateCell, textCell, input, doneListener;
+    dateCell = editButton.parents('.entry-row').find('.date-text');
     textCell = editButton.parents('.entry-row').find('.entry-text');
     // Fill input field with current value and place cursor at end
     input = $('.entry-input');
-    input.val(textCell.text());
+    input.val(" " + textCell.text());
+    $('.datepicker').val(dateCell.text().substring(0,10));
     input[0].selectionStart = input[0].selectionEnd = input.val().length;
     editedEntryButton = editButton;
     that.refreshAddButton();
@@ -96,7 +97,7 @@ var myNextDays = function($, model) {
       }
       trClass += ' entry-' + i;
       $('.entries-tbody:last').append(
-        '<tr class="' + trClass + '"><td>' + e.date + '</td><td>' + e.time + '</td><td class="entry-text">' + e.text + '</td>' +
+        '<tr class="' + trClass + '"><td class="date-text">' + e.date + '</td><td>' + e.time + '</td><td class="entry-text">' + e.text + '</td>' +
         '<td><div class="btn-group row-actions">' + 
         '<a class="btn btn-small remove-button" href="#' + i + '"><i class="icon-minus"></i> Remove</a>' + 
         '<a class="btn btn-small edit-button" href="#' + i + '"><i class="icon-pencil"></i> Edit</a>' + 
@@ -198,27 +199,22 @@ var myNextDays = function($, model) {
   }
   
   that.searchEntries = function() {
-    var searchText = $('.entry-input').val();
+    var searchText = $('.search-input').val();
     if (searchText.length == 0) {
        if (model.isSearchActive()) {
         that.closeSearch()
        }
        return;
     }
-    $('.entry-input').val('');
     $('.search-text').text(searchText);
-    $('.search-badge').fadeIn('fast');
     model.setSearch(searchText);
     that.refresh();
-    $('.entry-input').focus();
   }
   
   that.closeSearch = function() {
-    $('.entry-input').val('');
-    $('.search-badge').fadeOut('fast');
+    $('.search-input').val('');
     model.clearSearch()
     that.refresh();
-    $('.entry-input').focus();
   }
 
   that.run = function()
@@ -249,7 +245,9 @@ var myNextDays = function($, model) {
   
   var executeAdd = function(){
     var input = $('.entry-input').val();
-    that.addEntry(input);
+    var pickedDate =  $(".datepicker").datepicker('getDate');
+    that.addEntry(input, pickedDate);
+    $('.datepicker').val('');
     $('.entry-input').val('');
   };
   
@@ -291,16 +289,25 @@ var myNextDays = function($, model) {
     that.closeSearch();
   });
   
-  // CTRL+S as key comibination for search
-  var isCtrl = false;
-  $(document).keydown(
-    function (e) { 
-      if(e.which == 83 && e.ctrlKey == true) { 
-        that.searchEntries();
-        return false; 
-      } 
+  // Search when pressing a key in the search field 
+  $('.search-input').bind('keyup', function(e) {
+    that.searchEntries();
   });
   
+  // Make search input clearable
+  $('.clear-search').click(function(){
+    that.closeSearch();
+  });
+  
+  // Configure date picker
+  $('.datepicker').datepicker({
+      dateFormat: "dd.mm.yy",
+      buttonText: "Pick a date (if you don't have one in your event) ...",
+      showOn: "button",
+      buttonImage: "assets/img/calender-icon.png",
+      buttonImageOnly: true
+  });
+    
   // Initialize
   $('a[rel=popover]').popover({placement: "bottom", trigger: "hover"});
   that.createCalendar();
