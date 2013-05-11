@@ -44,7 +44,7 @@ var mnd_model = (function() {
     }
   }
   
-  that.addEntry = function(input) {
+  that.addEntry = function(input, pickedDate) {
     var date, dateText, time, note;
     note = input;
     dateText = "";
@@ -95,6 +95,10 @@ var mnd_model = (function() {
         }
       }
     }
+    if (pickedDate)
+    {
+      date = pickedDate;
+    }    
         
     if (typeof date == 'undefined')
     {
@@ -102,7 +106,7 @@ var mnd_model = (function() {
       date = new Date();
     }
     else {
-        dateText = date.toLocaleDateString();
+        dateText = $.datepicker.formatDate('dd.mm.yy, DD', date);
         // var dateTime = new DateTime(date.getTime());
         // dateText = dateTime.sym.d.yyyy + "-" + dateTime.sym.d.mm + "-" + dateTime.sym.d.dd + ", " + dateTime.day.name;
     }    
