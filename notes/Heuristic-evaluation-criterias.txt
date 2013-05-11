@@ -1,0 +1,72 @@
+Heuristic evaluation Criterias
+==============================
+
+Source: Scott Klemmer (Coursera HCI Online Course)
+[1][Source: useit.com/papers/heutristics]
+
+Show system status
+- Time: Progress Indicator, Remaining Steps
+- Space: Remaining Space
+- Change: Change notification
+- Action: e.g. Traffic Light
+- Next steps: sth. has happened and what will happen next
+- Completion: sth. is done
+
+Familiar Metaphors and Language
+- Use Common terms
+- Use familiar Categories
+
+User Control & Freedom
+- Wizard for tasks you do once
+- Freedom to undo
+- Freedom to explore
+
+Consistency
+- Layout: e.g where are the buttons?
+- Consistent Names: What terminology do users use?
+-- e.g. Other with Exaple to discover new categories 
+- Specific options in dialogs (e.g. not OK an cancel when not apropriate)
+
+Error prevention
+- Prevent Data Loss: e.g. a file already exists and may be overwritten
+- Prevent Clutter: e.g. duplicate prevention with preview
+- Prevent Confusing Flow: Label buttons appropriate
+- Prevent Bad input: e.g. command line doesn't do, has a specific syntax to be used? (e.g. for date field)
+- Unnecessary constraints: e.g. searching requires you to select a category first
+
+Recognition over recall
+- Avoid Codes: Where user must do a 'lookup'
+- Avoid extra hurdles: e.g. use reasonable defaults instead of intermediary steps
+- Previews: e.g. when selecting a template
+
+Flexibility & efficiency
+- Flexible Shortcuts (Accelerators - unseen by the novice user- speed up interaction for the expert)
+- Flexible defaults with options: Popula options first/easy selectable
+- Flexible Proactivity
+- Recommendation
+- Keep it relevant
+
+Aesthetic & minimalist design
+- Minimalism:
+-- Core information above the fold
+-- Signal-to-noise
+-- e.g. no tables when having an option box
+-- Redundancy
+-- Functionality: e.g. no widgets for a site which will be used very infrequent
+
+Recognize, diagnose & recover from errors
+- Make Problem clear: when showing detected errors
+- Provide a solution: e.g. "Not enough free Space" (OK)
+- Propose an Alternative: e.g. when search doesn't find anything
+- Recognize Errors: e.g. a severe security issue shoudl be displayed so (example Blocked pages in Firefox)
+
+Help
+- Learning with examples: e.g. on program language teaching sites
+- Choices with examples
+- Show the steps
+- Help point things out: Combine help within the User interface
+- Help clearly: e.g. summaries of long information (like EULA)
+- Help people have fun: Example: Joke in the inside of a combo box
+
+
+

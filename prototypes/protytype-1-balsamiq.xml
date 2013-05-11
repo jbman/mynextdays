@@ -1,0 +1,112 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="1000" measuredH="475" mockupW="990" mockupH="462">
+  <controls>
+    <control controlID="36" controlTypeID="com.balsamiq.mockups::Canvas" x="10" y="18" w="800" h="346" measuredW="100" measuredH="70" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <borderStyle>square</borderStyle>
+        <color>16777215</color>
+      </controlProperties>
+    </control>
+    <control controlID="40" controlTypeID="com.balsamiq.mockups::TextInput" x="34" y="57" w="684" h="-1" measuredW="331" measuredH="34" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>false</bold>
+        <size>20</size>
+        <text>Next%20friday%205PM%20CEST%20call%20Mary%20and</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="com.balsamiq.mockups::TextArea" x="34" y="115" w="766" h="218" measuredW="200" measuredH="140" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <borderColor>16777215</borderColor>
+        <size>16</size>
+        <text>17.10.2012%0913%3A00%09HCI%20Quiz%202%20due%20Wednesday%2C%2010/17/2012%2C%2010%3A00%20pm%20PDT%0A19.10.2012%20%0917%3A00%09next%20friday%205PM%20CEST%20call%20Mary%20and%0A22.10.2012%20%0917%3A45%20%20%20%20%20%20Tennis%20every%20tuesday%2018%3A30%2C%20take%20bus%20at%2017%3A45%0A24.10.2012%09%09%09Make%20an%20appointment%20for%20the%20dentitst.%20Do%20it%20now%21%0A27.10.2012%20%20%20%20%09%09%09Maybe%20go%20to%20the%20rock%20concert%20with%20Mary%20this%20suturday%20but%20it%20is%20so%20expensive%0A29.10.2012%0917%3A45%09Tennis%20every%20tuesday%2018%3A30%2C%20take%20bus%20at%2017%3A45%0A31.10.2012%20%09%09%09Pauls%20Birthday%20%2831.10%29%0A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="com.balsamiq.mockups::Button" x="733" y="57" w="49" h="34" measuredW="47" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Add</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="com.balsamiq.mockups::StickyNote" x="217" y="377" w="155" h="98" measuredW="109" measuredH="123" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Word%20%22Birthday%22%20recognized%20as%20yearly%20event</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="com.balsamiq.mockups::Arrow" x="234" y="258" w="90" h="135" measuredW="150" measuredH="100" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>false</leftArrow>
+        <rightArrow>true</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="com.balsamiq.mockups::Arrow" x="613" y="91" w="229" h="42" measuredW="150" measuredH="100" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>bottom</direction>
+        <leftArrow>true</leftArrow>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="com.balsamiq.mockups::StickyNote" x="815" y="13" w="185" h="102" measuredW="109" measuredH="123" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Time%20entered%20with%20time%20zone%20info%20and%20converted%20to%20users%20time</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="com.balsamiq.mockups::StickyNote" x="474" y="364" w="326" h="80" measuredW="109" measuredH="123" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Click%20and%20edit%20%28e.g.%20if%20bus%20departure%20changes%29.%20Edit%20is%20inline%2C%20like%20a%20text%20document.</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="com.balsamiq.mockups::Arrow" x="522" y="243" w="118" h="134" measuredW="150" measuredH="100" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>top</direction>
+        <leftArrow>true</leftArrow>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="com.balsamiq.mockups::Canvas" x="34" y="195" w="712" h="23" measuredW="100" measuredH="70" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <borderColor>16777215</borderColor>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="com.balsamiq.mockups::StickyNote" x="823" y="258" w="177" h="92" measuredW="109" measuredH="123" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Word%20%22Maybe%22%20recognized%20and%20formatted%20accordingly%20as%20uncertain%20event</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="com.balsamiq.mockups::Arrow" x="733" y="209" w="162" h="55" measuredW="150" measuredH="100" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <direction>top</direction>
+        <leftArrow>true</leftArrow>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="com.balsamiq.mockups::Canvas" x="34" y="135" w="712" h="23" measuredW="100" measuredH="70" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0.5</backgroundAlpha>
+        <borderColor>16777215</borderColor>
+        <color>16776960</color>
+      </controlProperties>
+    </control>
+    <control controlID="53" controlTypeID="com.balsamiq.mockups::StickyNote" x="818" y="123" w="182" h="79" measuredW="109" measuredH="123" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Text%20occurs%20as%20you%20type%20into%20the%20input%20field</text>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="com.balsamiq.mockups::Arrow" x="546" y="147" w="290" h="28" measuredW="150" measuredH="100" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <rightArrow>false</rightArrow>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="com.balsamiq.mockups::Label" x="34" y="29" w="-1" h="-1" measuredW="369" measuredH="21" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Write%20down%20a%20new%20entry%20or%20start%20with%20%22find%22%20to%20search%20for%20entries</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="com.balsamiq.mockups::HelpButton" x="403" y="32" w="-1" h="-1" measuredW="18" measuredH="18" zOrder="17" locked="false" isInGroup="-1"/>
+  </controls>
+</mockup>

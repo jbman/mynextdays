@@ -1,0 +1,11 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>typin.ep</title><LINK rel="stylesheet" type="text/css" href="Resources/Style.css"> </LINK><SCRIPT type="text/javascript" src="Resources/jquery.js"> </SCRIPT><SCRIPT type="text/javascript" src="Resources/jquery.layout.js"> </SCRIPT><script type="text/javascript" src="Resources/jquery.ui.all.js"> </script><SCRIPT type="text/javascript">
+                    $(document).ready(function () {
+                    $('body').layout({ applyDefaultStyles: true,
+                            minSize:140 });
+                    });
+                </SCRIPT></head><body><div id="leftpanel" class="ui-layout-west"><div class="ThumbContainer"><a href="#start_page"><img src="pages/start.png" style="min-width:100px" /><hr /><span class="number">1/2</span> -
+                                    Start</a></div><div class="ThumbContainer"><a href="#addedfriday_page"><img src="pages/addedfriday.png" style="min-width:100px" /><hr /><span class="number">2/2</span> -
+                                    added-friday</a></div></div><div id="main" class="ui-layout-center"><div class="Page" id="start_page"><div class="pageTitle">Start<div class="MainNumber">
+                    Page 1/2</div></div><div class="ImageContainer"><img class="raster" style="max-width:1024px" src="pages/start.png" usemap="#map_start" /></div><map name="map_start"><area shape="rect" coords="903,138,953,186" href="#addedfriday_page" title="Go to page 'added-friday'" /></map></div><div class="Page" id="addedfriday_page"><div class="pageTitle">added-friday<div class="MainNumber">
+                    Page 2/2</div></div><div class="ImageContainer"><img class="raster" style="max-width:1024px" src="pages/addedfriday.png" usemap="#map_addedfriday" /></div><map name="map_addedfriday"></map></div></div></body></html>

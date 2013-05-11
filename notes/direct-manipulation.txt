@@ -1,0 +1,107 @@
+Human centered design
+======================
+
+Action: How does the user know what to do?
+
+* Determine functions
+* possible actions
+* mapping from goal to physical movement
+* Execute Action
+
+How does the user know what happens?
+
+* What state is the system in
+* Mapping from state to meaning
+
+Cmd line vs GUI
+===============
+
+CMD Line
+
+* Have to knwo syntax 
+* Have to know action a priori
+* Minimal feedback
+* Expresses stuff more abstractly => Indirection minimized
+
+GUI
+
+* Direct Manipulation: Visibility, Feedback, Constistency, Non-destructive, Discoverability, Reliability
+* Gestures: Non-self-disclosing, More direct (for some gestures)
+
+
+Mental Models
+=============
+
+Examples: 
+
+* Door with two handles but only one can open
+* Refrigerator with freezer and two dials: one for temperature and one for ratio
+
+Conceptual model mismatch between designers and users
+
+Mentel modelas arise form experience,metaphors and analogical reasoning
+
+Slips vs. Mistakes
+------------------
+
+Slip: Right model, but do wrong thing (physically)
+
+* Improve ergonomics (e.g. make targets bigger)
+
+Mistake: Do what I intend to do (physically), wrong in belief
+
+* Better feedback
+* Percieve affordances
+
+
+Representation Matters
+======================
+
+Examples 
+
+* Orange&Bagle Puzzle: Physical representations make it easier to remeber the rules and to only take the top bagel
+* Number pick game 1-9, to get 15 points: Easier with cards
+* Tic-tac-toe is isomorph to number pick game, giving numbers to the fields :-)
+
+Solving a problem is representing it, to make the solution transparent
+
+Naturalness Priniciple
+----------------------
+
+Representation properties (Bagles can be stacked) matches the properties of the thing beeing represented (game rule)
+
+Examples: 
+
+* Networked pill, natural actions also activate the system (activating transmitter, taking pill)
+* Show mini preview when printing vs. dialog box asking yes or no if page doesn't fit
+
+
+Distributing Cognition
+----------------------
+
+Good representation supports: Comparison, Exploration, Problem solving
+
+Representation must fit to the task the user is doing.
+
+Picture is worth 10000 words: Not alwayws, but when you can convert reasoning tasks to perception tasks.
+
+Information equivalence != Computational effort (effort to extract infromation is sometimes harder)
+Example: Markers in a speed instruemnt in a cockpit, visible for both pilots in the cockpit 
+
+When interfaces help people distribute cognition, it can...
+- encourage experimentation (tetris)
+- Scaffold learning and reduce errors through redundancy (Montessori blocks) -> Makes abstract concept concrete
+- show only things that matter (underground map)
+- Fast perception (Map coloring)
+- Support Chunking, especially by experts (Chess, gestures)
+- Increase efficiency (diagrams)
+- Facilate collaboration (cockpits)
+
+Poor representations
+--------------------
+
+- Password rules not explained, validation at the end and not after first password input
+- Fill out all required fields (but doesn't say which they are)
+- Non-action oriented dialog boxes aren't helpful. Action orineted titles on buttons are good.
+- Sometimes action orineted buttons aren't enough (e.g. file exists, is it ok to overwrite it?)
+
